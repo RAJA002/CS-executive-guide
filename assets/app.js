@@ -26,8 +26,50 @@ function paperStats(paperId) {
 
 const STATUS_LABEL = { none: "Not started", studying: "Studying", done: "Revised", weak: "Weak" };
 
+// Recommends the next lesson to study for a paper:
+// 1. Anything marked "weak" first (revision priority), in lesson order.
+// 2. Anything already "studying" (finish what you started).
+// 3. Otherwise, the first untouched lesson within the highest-weightage part
+//    that still has incomplete lessons, in official lesson order.
+// Returns null once every lesson in the paper is "done".
+function nextLesson(paperId) {
+  const paper = PAPERS[paperId];
+  const p = getProgress();
+  const statusOf = l => p[`${paperId}-${l.n}`] || "none";
+
+  const weak = paper.lessons.find(l => statusOf(l) === "weak");
+  if (weak) return { lesson: weak, reason: "weak" };
+
+  const studying = paper.lessons.find(l => statusOf(l) === "studying");
+  if (studying) return { lesson: studying, reason: "studying" };
+
+  const partOrder = paper.parts.map((part, i) => i).sort((a, b) => paper.parts[b].marks - paper.parts[a].marks);
+  for (const partIdx of partOrder) {
+    const next = paper.lessons.find(l => l.part === partIdx && statusOf(l) === "none");
+    if (next) return { lesson: next, reason: "next" };
+  }
+  return null;
+}
+
 // ---------- Dashboard ----------
 function renderDashboard() {
+  const upNext = document.getElementById("up-next");
+  upNext.innerHTML = Object.values(PAPERS).map(paper => {
+    const rec = nextLesson(paper.id);
+    if (!rec) {
+      return `<div class="upnext-card done"><div class="code">${paper.code} — ${paper.short}</div><div class="upnext-title">All lessons revised 🎉</div></div>`;
+    }
+    const part = paper.parts[rec.lesson.part];
+    const reasonLabel = rec.reason === "weak" ? "Revise — flagged weak" : rec.reason === "studying" ? "Continue" : "Start next";
+    return `
+      <a class="upnext-card" href="subject.html?paper=${paper.id}#lesson-${paper.id}-${rec.lesson.n}">
+        <div class="code">${paper.code} — ${paper.short}</div>
+        <div class="upnext-tag ${rec.reason}">${reasonLabel}</div>
+        <div class="upnext-title">${rec.lesson.n}. ${rec.lesson.title}</div>
+        <div class="upnext-part">${part.name} — ${part.marks} marks</div>
+      </a>`;
+  }).join("");
+
   const grid = document.getElementById("paper-grid");
   grid.innerHTML = "";
   Object.values(PAPERS).forEach(paper => {
@@ -81,6 +123,17 @@ function renderSubject() {
     return `<div><strong>${part.marks} marks</strong>${part.name} — ${partDone}/${partLessons.length} revised</div>`;
   }).join("") + `<div><strong>${stats.pct}%</strong>Overall progress</div>`;
 
+  const recBox = document.getElementById("recommended-next");
+  const rec = nextLesson(paperId);
+  if (rec) {
+    const reasonText = rec.reason === "weak" ? "Flagged weak — worth revising" : rec.reason === "studying" ? "Pick up where you left off" : "Next up, by weightage";
+    recBox.innerHTML = `<span class="rec-label">${reasonText}:</span> <a href="#lesson-${paperId}-${rec.lesson.n}" class="rec-link">${rec.lesson.n}. ${rec.lesson.title}</a>`;
+    recBox.style.display = "block";
+  } else {
+    recBox.innerHTML = `All lessons in this paper are marked revised 🎉`;
+    recBox.style.display = "block";
+  }
+
   const root = document.getElementById("lesson-list");
   root.innerHTML = "";
   paper.parts.forEach((part, i) => {
@@ -93,6 +146,7 @@ function renderSubject() {
       const status = getStatus(paperId, l.n);
       const div = document.createElement("div");
       div.className = "lesson";
+      div.id = `lesson-${paperId}-${l.n}`;
       div.innerHTML = `
         <div class="lesson-row">
           <span class="caret">▸</span>
@@ -128,4 +182,12 @@ function renderSubject() {
       root.appendChild(div);
     });
   });
+
+  if (location.hash) {
+    const target = document.getElementById(location.hash.slice(1));
+    if (target) {
+      target.classList.add("open");
+      setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "center" }), 50);
+    }
+  }
 }
