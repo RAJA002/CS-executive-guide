@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Subject — CS Executive Module 2 Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=4" />
+</head>
+<body>
+  <div class="topbar">
+    <a href="index.html" class="brand">CS Executive <span>Module 2</span></a>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="subject.html?paper=cmsl">CMSL</a>
+      <a href="subject.html?paper=ecip">ECIP</a>
+      <a href="subject.html?paper=tax">Tax Laws</a>
+    </nav>
+  </div>
+
+  <div class="wrap" id="subject-root">
+    <div class="subject-head">
+      <div class="code" id="subject-code"></div>
+      <h1 id="subject-title"></h1>
+    </div>
+    <div class="part-summary" id="part-summary"></div>
+    <div id="lesson-list"></div>
+  </div>
+
+  <script src="assets/data.js?v=2"></script>
+  <script src="assets/app.js?v=2"></script>
+  <script src="assets/bot.js?v=7"></script>
+  <script>renderSubject();</script>
+</body>
+</html>

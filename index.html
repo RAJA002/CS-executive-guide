@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CS Executive Module 2 — Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=4" />
+</head>
+<body>
+  <div class="topbar">
+    <a href="index.html" class="brand">CS Executive <span>Module 2</span></a>
+    <nav>
+      <a href="index.html" class="active">Dashboard</a>
+      <a href="subject.html?paper=cmsl">CMSL</a>
+      <a href="subject.html?paper=ecip">ECIP</a>
+      <a href="subject.html?paper=tax">Tax Laws</a>
+    </nav>
+  </div>
+
+  <div class="wrap">
+    <div class="hero">
+      <h1>Group 2 — Executive Programme</h1>
+      <p>Three papers, tracked by ICSI's official weightage. Click into a subject for lesson notes, progress tracking, and the study bot.</p>
+    </div>
+
+    <div class="paper-grid" id="paper-grid"></div>
+
+    <div class="weak-list">
+      <h3>Flagged as weak</h3>
+      <div id="weak-items"></div>
+    </div>
+  </div>
+
+  <script src="assets/data.js?v=2"></script>
+  <script src="assets/app.js?v=2"></script>
+  <script src="assets/bot.js?v=7"></script>
+  <script>renderDashboard();</script>
+</body>
+</html>
