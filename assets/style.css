@@ -77,6 +77,20 @@ a { color: inherit; }
 .progress-label { font-size: 0.82rem; color: var(--ink-soft); display: flex; justify-content: space-between; }
 
 .weak-list { margin-top: 34px; border-top: 1px solid var(--rule); padding-top: 20px; }
+.section-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--brass); margin: 0 0 10px; }
+.upnext-card { background: var(--navy); color: var(--parchment); padding: 18px 20px; text-decoration: none; display: block; }
+.upnext-card .code { font-size: 0.75rem; color: var(--brass-soft); letter-spacing: 0.03em; }
+.upnext-tag { display: inline-block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 8px; margin: 8px 0 8px; border: 1px solid var(--brass-soft); color: var(--brass-soft); }
+.upnext-tag.weak { border-color: var(--weak); color: #e08579; }
+.upnext-title { font-family: "Source Serif 4", Georgia, serif; font-size: 1.05rem; margin-bottom: 6px; }
+.upnext-part { font-size: 0.8rem; opacity: 0.75; }
+.upnext-card.done { color: var(--ink-soft); background: #fff; border: 1px solid var(--rule); }
+.upnext-card.done .upnext-title { color: var(--done); }
+.recommended-next { background: var(--parchment-deep); border-left: 3px solid var(--brass); padding: 10px 16px; margin-bottom: 24px; font-size: 0.9rem; }
+.rec-label { color: var(--ink-soft); font-size: 0.82rem; }
+.rec-link { color: var(--brass); font-weight: 600; text-decoration: none; }
+.rec-link:hover { text-decoration: underline; }
+.lesson.open { background: var(--parchment-deep); }
 .weak-list h3 { font-size: 1rem; margin: 0 0 10px; }
 .weak-list ul { margin: 0; padding: 0; list-style: none; }
 .weak-list li { padding: 6px 0; border-bottom: 1px dotted var(--rule); font-size: 0.92rem; display: flex; justify-content: space-between; }
