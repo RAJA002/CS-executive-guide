@@ -6,7 +6,7 @@
 <title>CS Executive Module 2 — Study Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=4" />
+<link rel="stylesheet" href="assets/style.css?v=5" />
 </head>
 <body>
   <div class="topbar">
@@ -25,6 +25,10 @@
       <p>Three papers, tracked by ICSI's official weightage. Click into a subject for lesson notes, progress tracking, and the study bot.</p>
     </div>
 
+    <h3 class="section-label">Study next</h3>
+    <div class="paper-grid" id="up-next"></div>
+
+    <h3 class="section-label" style="margin-top:34px;">All papers</h3>
     <div class="paper-grid" id="paper-grid"></div>
 
     <div class="weak-list">
@@ -34,7 +38,7 @@
   </div>
 
   <script src="assets/data.js?v=2"></script>
-  <script src="assets/app.js?v=2"></script>
+  <script src="assets/app.js?v=3"></script>
   <script src="assets/bot.js?v=7"></script>
   <script>renderDashboard();</script>
 </body>
